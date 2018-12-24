@@ -64,4 +64,17 @@ public class RoomDAO {
         db.execNonQuerry(sql);
     }
 
+    public void addNewRoom(String rname, int rmanagerid, int rdeputyid, int depid) {
+         String sql = "INSERT INTO `qlnv`.`rooms` (`rname`, `rmanagerid`, `rdeputyid`, `depid`) VALUES ('"
+                + rname
+                + "', '"
+                + rmanagerid
+                + "', '" 
+                + rdeputyid
+                + "', '"
+                + depid
+                + "');";
+        db.execNonQuerry(sql);
+    }
+
 }

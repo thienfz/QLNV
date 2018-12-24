@@ -63,4 +63,15 @@ public class DepartmentDAO {
         db.execNonQuerry(sql);
     }
 
+    public void addNewDep(String depname, int depmanagerid, int depdeputyid) {
+        String sql = "INSERT INTO `qlnv`.`departments` (`depname`, `depmanagerid`, `depdeputyid`) VALUES ('"
+                + depname
+                + "', '"
+                + depmanagerid
+                + "', '"
+                + depdeputyid
+                + "');";
+        db.execNonQuerry(sql);
+    }
+
 }
