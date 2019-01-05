@@ -8,8 +8,6 @@ package quanlynhansu.model;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
-import java.util.logging.Level;
-import java.util.logging.Logger;
 import javax.swing.JOptionPane;
 import static quanlynhansu.QuanLyNhanSu.db;
 
@@ -39,7 +37,6 @@ public class EmployeeDAO { // ds cac nhan vien
         db.execNonQuerry(sql);
     }
 
-
     public void editEmployee(EmployeeDTO e) {
 //UPDATE `qlnv`.`employees` SET `username` = 'thienthien1', `password` = 'thienthien1', `fullname` = 'thien 1', `address` = 'somewher 1', `phone` = '1818181818', `role` = '3', `rid` = '2', `prid` = '3' WHERE (`uid` = '20');
         String sql = "UPDATE `qlnv`.`employees` SET "
@@ -59,7 +56,7 @@ public class EmployeeDAO { // ds cac nhan vien
     public ArrayList<EmployeeDTO> getAllEmployee() {
 
         ArrayList<EmployeeDTO> allEmployee = new ArrayList<>();
-        String sql = "SELECT * FROM qlnv.employees;";
+        String sql = "SELECT * FROM qlnv.employees WHERE  uid != 0;";
         ResultSet rs = db.execSelectQuerry(sql);
         try {
             while (rs.next()) {
@@ -83,7 +80,7 @@ public class EmployeeDAO { // ds cac nhan vien
     public EmployeeDTO getEmployeeByID(int uid) {
         EmployeeDTO e = new EmployeeDTO();
         try {
-            String sql = "SELECT * FROM qlnv.employees where uid="+uid+";";
+            String sql = "SELECT * FROM qlnv.employees where uid=" + uid + ";";
             ResultSet rs = db.execSelectQuerry(sql);
             if (rs.next()) {
                 e = new EmployeeDTO(
@@ -99,6 +96,31 @@ public class EmployeeDAO { // ds cac nhan vien
                 return e;
             }
 
+        } catch (SQLException ex) {
+            JOptionPane.showMessageDialog(null, "Error: " + ex.getMessage());
+        }
+        return e;
+    }
+
+    public EmployeeDTO getEmployeeByUsername(String username) {
+        EmployeeDTO e = new EmployeeDTO();
+        try {
+            String sql = "SELECT * FROM qlnv.employees where username='" + username + "';";
+            ResultSet rs = db.execSelectQuerry(sql);
+            if (rs.next()) {
+                e = new EmployeeDTO(
+                        rs.getInt("uid"),
+                        rs.getString("username"),
+                        rs.getString("password"),
+                        rs.getString("fullname"),
+                        rs.getString("address"),
+                        rs.getString("phone"),
+                        rs.getInt("rid"),
+                        rs.getInt("prid"),
+                        rs.getInt("role"));
+                return e;
+            }
+            return null;
         } catch (SQLException ex) {
             JOptionPane.showMessageDialog(null, "Error: " + ex.getMessage());
         }
@@ -151,7 +173,5 @@ public class EmployeeDAO { // ds cac nhan vien
         }
         return list;
     }
-
-    
 
 }

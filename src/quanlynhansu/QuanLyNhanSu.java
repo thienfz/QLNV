@@ -7,6 +7,7 @@ package quanlynhansu;
 
 import quanlynhansu.model.DepartmentDAO;
 import quanlynhansu.model.EmployeeDAO;
+import quanlynhansu.model.MessageDAO;
 import quanlynhansu.model.ProjectDAO;
 import quanlynhansu.model.RoomDAO;
 import quanlynhansu.view.Login;
@@ -24,7 +25,8 @@ public class QuanLyNhanSu {
     public static RoomDAO roomDAO = new RoomDAO();
     public static DepartmentDAO departmentDAO = new DepartmentDAO();
     public static ProjectDAO projectDAO = new ProjectDAO();
-
+    public static MessageDAO messageDAO = new MessageDAO();
+    
     public static void main(String[] args) throws Exception {
         db = new DatabaseControl();
         db.connect();

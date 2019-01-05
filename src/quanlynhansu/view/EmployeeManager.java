@@ -29,12 +29,14 @@ public class EmployeeManager extends javax.swing.JFrame {
     DefaultTableModel model;
     ArrayList<EmployeeDTO> allEmployee = new ArrayList<>();
     int role;
-
-    public EmployeeManager(int role) {
+    int uid;
+    public EmployeeManager(int role, int uid) {
+        this.uid = uid;
         initComponents();
         this.role = role;
         setLocationRelativeTo(null);
         allEmployee = employeeDAO.getAllEmployee();
+
         newtable();
         if (role == 0) {
             this.logout.setVisible(false);
@@ -60,6 +62,7 @@ public class EmployeeManager extends javax.swing.JFrame {
         logout = new javax.swing.JButton();
         input = new javax.swing.JTextField();
         searchbutton = new javax.swing.JButton();
+        jButton5 = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
@@ -108,6 +111,13 @@ public class EmployeeManager extends javax.swing.JFrame {
             }
         });
 
+        jButton5.setText("Message");
+        jButton5.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton5ActionPerformed(evt);
+            }
+        });
+
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
@@ -132,6 +142,8 @@ public class EmployeeManager extends javax.swing.JFrame {
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 286, Short.MAX_VALUE))
                             .addGroup(layout.createSequentialGroup()
                                 .addComponent(jButton1, javax.swing.GroupLayout.PREFERRED_SIZE, 98, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                .addComponent(jButton5)
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                                 .addComponent(logout, javax.swing.GroupLayout.PREFERRED_SIZE, 96, javax.swing.GroupLayout.PREFERRED_SIZE)))))
                 .addGap(37, 37, 37))
@@ -145,7 +157,8 @@ public class EmployeeManager extends javax.swing.JFrame {
                     .addComponent(jButton3)
                     .addComponent(jButton4)
                     .addComponent(jButton1)
-                    .addComponent(logout))
+                    .addComponent(logout)
+                    .addComponent(jButton5))
                 .addGap(17, 17, 17)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(input, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -186,31 +199,31 @@ public class EmployeeManager extends javax.swing.JFrame {
     }//GEN-LAST:event_jButton2ActionPerformed
 
     private void jButton4ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton4ActionPerformed
-     int row = table.getSelectedRow();
+        int row = table.getSelectedRow();
         if (row == -1) {
             return;
         } else {
             int uid = Integer.valueOf((String) table.getValueAt(row, 0));
             new EmployeeEdit(employeeDAO.getEmployeeByID(uid)).setVisible(true);
-           
+
         }
-             // TODO add your handling code here:
+        // TODO add your handling code here:
     }//GEN-LAST:event_jButton4ActionPerformed
 
     private void searchbuttonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_searchbuttonActionPerformed
         String input = this.input.getText().toLowerCase();
         allEmployee.clear();
         allEmployee = employeeDAO.getAllEmployee();
-        
+
         for (int i = 0; i < allEmployee.size(); i++) {
-            if(allEmployee.get(i).getUsername().toLowerCase().contains(input)){
+            if (allEmployee.get(i).getUsername().toLowerCase().contains(input)) {
                 System.out.println("input: " + input + "; i: " + allEmployee.get(i).getUsername());
-               
-            } else{
+
+            } else {
                 allEmployee.remove(allEmployee.get(i));
             }
         }
-        
+
         String[] row = {"UID", "Username", "Fullname", "Address", "Phone", "Department", "Room", "Project", "Role"};
         model = new DefaultTableModel(row, 0) {
             @Override
@@ -263,12 +276,17 @@ public class EmployeeManager extends javax.swing.JFrame {
         table.setModel(model);
     }//GEN-LAST:event_searchbuttonActionPerformed
 
+    private void jButton5ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton5ActionPerformed
+        new MessageView(uid).setVisible(true);
+    }//GEN-LAST:event_jButton5ActionPerformed
+
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JTextField input;
     private javax.swing.JButton jButton1;
     private javax.swing.JButton jButton2;
     private javax.swing.JButton jButton3;
     private javax.swing.JButton jButton4;
+    private javax.swing.JButton jButton5;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JButton logout;
     private javax.swing.JButton searchbutton;

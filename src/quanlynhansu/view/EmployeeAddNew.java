@@ -109,6 +109,12 @@ public class EmployeeAddNew extends javax.swing.JFrame {
             }
         });
 
+        room.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                roomActionPerformed(evt);
+            }
+        });
+
         role.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Manage", "Deputy", "Lecturer", "Staff" }));
 
         clear.setText("Clear");
@@ -250,6 +256,10 @@ public class EmployeeAddNew extends javax.swing.JFrame {
             }
         }
     }//GEN-LAST:event_departmentActionPerformed
+
+    private void roomActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_roomActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_roomActionPerformed
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables

@@ -30,9 +30,10 @@ public class EmployeeEdit extends javax.swing.JFrame {
     ArrayList<RoomDTO> listR = roomDAO.getAllRoom();
     ArrayList<DepartmentDTO> listDep = departmentDAO.getAllDepartment();
     ArrayList<ProjectDTO> listPr = projectDAO.getAllProject();  
-
+   
     public EmployeeEdit(EmployeeDTO e) {
         initComponents();
+        
         this.title.setText("Edit " + e.getUsername());
         this.uid.setText(e.getUid() + "");
         this.username.setText(e.getUsername());
@@ -269,6 +270,7 @@ public class EmployeeEdit extends javax.swing.JFrame {
                     rid,
                     prid,
                     role));
+            this.setVisible(false);
         } catch (Exception ex) {
             JOptionPane.showMessageDialog(null, "Khong edit duoc tai khoan!!");
         }

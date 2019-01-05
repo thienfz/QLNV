@@ -7,6 +7,7 @@ package quanlynhansu.view;
 
 import javax.swing.JOptionPane;
 import static quanlynhansu.QuanLyNhanSu.db;
+import static quanlynhansu.QuanLyNhanSu.employeeDAO;
 
 /**
  *
@@ -20,7 +21,7 @@ public class Login extends javax.swing.JFrame {
     public Login() {
         initComponents();
         setLocationRelativeTo(null);
-        
+
     }
 
     /**
@@ -109,9 +110,23 @@ public class Login extends javax.swing.JFrame {
                 this.setVisible(false);
                 break;
             case 1:
-                new EmployeeManager(1).setVisible(true);
+                new EmployeeManager(1,employeeDAO.getEmployeeByUsername(username).getUid()).setVisible(true);
                 this.setVisible(false);
                 break;
+            case 2:
+                new EmployeeManager(2,employeeDAO.getEmployeeByUsername(username).getUid()).setVisible(true);
+                this.setVisible(false);
+                break;
+            case 3:
+                new EmployeeView(employeeDAO.getEmployeeByUsername(username)).setVisible(true);
+                this.setVisible(false);
+                break;
+            case 4:
+                new EmployeeView(employeeDAO.getEmployeeByUsername(username)).setVisible(true);
+                this.setVisible(false);
+                break;
+            default:
+                System.out.println(db.login(username, password));
         }
     }//GEN-LAST:event_jButton1ActionPerformed
 
